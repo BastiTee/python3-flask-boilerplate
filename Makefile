@@ -57,7 +57,8 @@ lint:
 	@echo Run code formatting checks against source code base
 	pipenv run flake8 my_module tests
 
-build: test coverage isort lint
+build:
+	#test coverage isort lint
 	@echo Run setup.py-based build process to package application
 	pipenv run python setup.py bdist_wheel
 
@@ -67,9 +68,18 @@ publish: all
 	git tag -a $(VERSION) -m "Version $(VERSION)"
 	git push --tags
 
+dockerbuild: build
+	@echo Run full build toolchain and create a docker image for publishing
+	docker build -t "flask-boilerplate" . || exit 1
+
+dockerrun: dockerbuild
+	@echo Run docker build process and run a new container using the latest
+	docker run --rm -it -p $TARGET_PORT:80 --name acme-nginx "flask-boilerplate"
+
 run:
 	@echo Execute my_module directly
-	pipenv run python -m my_module
+	FLASK_APP=my_module FLASK_DEBUG=1 pipenv run \
+    flask run --host 0.0.0.0 --port 8080
 
 fetch-latest-boilerplate:
 	@echo Fetch latest python3-boilerplate version from github

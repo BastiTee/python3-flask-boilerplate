@@ -20,3 +20,4 @@ twine = "*" # Interoperability with pypi.org
 
 [packages]
 requests = "*"
+flask = "*"
