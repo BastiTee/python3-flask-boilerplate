@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Sample module.
+"""Module init-file.
 
-:copyright: (c) 2019 by Basti Tee.
-:license: Apache 2.0, see LICENSE for more details.
+The __init__.py files are required to make Python treat directories
+containing the file as packages.
 """
 
 import logging
