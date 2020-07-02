@@ -57,8 +57,7 @@ lint:
 	@echo Run code formatting checks against source code base
 	pipenv run flake8 my_module tests
 
-build:
-	#test coverage isort lint
+build: test coverage isort lint
 	@echo Run setup.py-based build process to package application
 	pipenv run python setup.py bdist_wheel
 
@@ -74,7 +73,7 @@ dockerbuild: build
 
 dockerrun: dockerbuild
 	@echo Run docker build process and run a new container using the latest
-	docker run --rm -it -p $TARGET_PORT:80 --name acme-nginx "flask-boilerplate"
+	docker run --rm -it -p 8080:80 --name acme-nginx "flask-boilerplate"
 
 run:
 	@echo Execute my_module directly

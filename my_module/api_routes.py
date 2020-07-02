@@ -10,22 +10,23 @@ from flask import request
 
 
 class ApiRoutes():
+    """Available API routes for this web application."""
 
-    def __init__(self, app, api_handler, api_operations):
+    def __init__(self, app, api_handler, api_operations):  # noqa: D107
 
         self.logger = logging.getLogger(__name__)
 
-        @app.route("/", methods=['GET'])
+        @app.route('/', methods=['GET'])
         def get_message():
             return api_handler.handle(
                 api_operations.MESSAGE_GET
             )
 
-        @app.route("/", methods=['POST'])
+        @app.route('/', methods=['POST'])
         def set_message():
             return api_handler.handle(
                 api_operations.MESSAGE_POST,
-                message=request.args.get('words')
+                request_args=request.args
             )
 
         @app.before_request

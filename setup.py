@@ -13,14 +13,14 @@ with open(path.join(path.abspath(path.dirname(__file__)), 'README.md'),
 
 setup(
     # Basic project information
-    name='python3-boilerplate',
-    version='0.0.4',
+    name='python3-flask-boilerplate',
+    version='0.0.1',
     # Authorship and online reference
     author='Basti Tee',
     author_email='basti.tee@posteo.de',
-    url='https://github.com/BastiTee/python3-boilerplate',
+    url='https://github.com/BastiTee/python3-flask-boilerplate',
     # Detailled description
-    description='Python3 boilerplate module.',
+    description='A best-practices template project for Python3 flask modules.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='sample setuptools development',
