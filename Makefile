@@ -20,7 +20,7 @@ export LANG=C.UTF-8
 # Current package version
 VERSION = $(shell python3 setup.py --version)
 
-all: clean venv build
+all: clean venv build dockerbuild
 
 venv: clean
 	@echo Initialize virtualenv, i.e., install required packages etc.
