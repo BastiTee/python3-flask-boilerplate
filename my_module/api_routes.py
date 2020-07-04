@@ -6,7 +6,7 @@
 import logging
 from time import time
 
-from flask import jsonify, request
+from flask import abort, request
 
 
 class ApiRoutes():
@@ -22,7 +22,10 @@ class ApiRoutes():
 
         @app.route('/', methods=['POST'])
         def post():
-            return api_handler.post(jsonify(request.get_json()))
+            if request.is_json:
+                return api_handler.post(request)
+            else:
+                return abort(400)
 
         @app.route('/', methods=['DELETE'])
         def delete():

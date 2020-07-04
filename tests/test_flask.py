@@ -9,6 +9,10 @@ import my_module
 
 import pytest
 
+sample_word = {
+    'word': 'testword'
+}
+
 
 @pytest.fixture
 def __client():
@@ -25,8 +29,34 @@ def __client():
     os.unlink(app.config['DATABASE'])
 
 
-def test_empty_db(__client):
-    """Start with a blank database."""
+def test_empty_db(__client):  # noqa: D103
     response = __client.get('/')
     assert response.status_code == 200
     assert json.loads(response.data) == []
+
+
+def test_insert_and_get_one(__client):  # noqa: D103
+    response = __client.post(
+        '/',
+        data=json.dumps(sample_word),
+        content_type='application/json'
+    )
+    assert response.status_code == 200
+    response = __client.get('/')
+    data = json.loads(response.data)
+    assert len(data) == 1
+    assert data[0]['word'] == 'testword'
+
+
+def test_insert_delete_and_get_none(__client):  # noqa: D103
+    response = __client.post(
+        '/',
+        data=json.dumps(sample_word),
+        content_type='application/json'
+    )
+    assert response.status_code == 200
+    response = __client.delete()
+    assert response.status_code == 200
+    response = __client.get('/')
+    data = json.loads(response.data)
+    assert len(data) == 0
