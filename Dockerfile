@@ -11,10 +11,7 @@ RUN apk update && apk add \
 RUN pip3 install --upgrade pip uwsgi pipenv
 
 # Install application dependencies
-COPY Pipfile /Pipfile
-RUN pipenv lock -r > /requirements.txt
-RUN cat /requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install flask
 
 # Configure NGINX
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
