@@ -77,7 +77,7 @@ dockerbuild: build
 
 dockerrun: dockerbuild
 	@echo Run docker build process and run a new container using the latest
-	docker run --rm -it -p $(PORT_NUMBER):80 --name acme-nginx $(IMAGE_NAME)
+	docker run --rm -it -p $(PORT_NUMBER):80 --name $(IMAGE_NAME) $(IMAGE_NAME)
 
 run:
 	@echo Execute my_module directly
