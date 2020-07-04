@@ -9,7 +9,7 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Python: Flask",
+            "name": "Run flask application",
             "type": "python",
             "request": "launch",
             "module": "flask",
@@ -26,6 +26,15 @@
                 "22174"
             ],
             "jinja": true
+        },
+        {
+            "name": "Run tests",
+            "type": "python",
+            "request": "launch",
+            "module": "py.test",
+            "args": [
+                "tests"
+            ]
         }
     ]
 }
