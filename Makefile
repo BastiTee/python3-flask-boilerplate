@@ -89,6 +89,10 @@ run:
 	FLASK_APP=my_module FLASK_DEBUG=1 pipenv run \
     flask run --host 0.0.0.0 --port $(PORT_NUMBER)
 
+initdb:
+	@echo Execute my_module directly
+	FLASK_APP=my_module FLASK_DEBUG=1 pipenv run flask init-db
+
 fetch-latest-boilerplate:
 	@echo Fetch latest python3-boilerplate version from github
 	git remote add py3template git@github.com:BastiTee/python3-boilerplate.git \
