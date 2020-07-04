@@ -18,7 +18,11 @@ export PYTHONPATH=.
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 # Current package version
-VERSION = $(shell python3 setup.py --version)
+VERSION=$(shell python3 setup.py --version)
+# Default my_module flask port
+PORT_NUMBER=22174
+# Default project docker image name
+IMAGE_NAME="python3-flask-boilerplate"
 
 all: clean venv build dockerbuild
 
@@ -69,16 +73,16 @@ publish: all
 
 dockerbuild: build
 	@echo Run full build toolchain and create a docker image for publishing
-	docker build -t "flask-boilerplate" . || exit 1
+	docker build -t $(IMAGE_NAME) . || exit 1
 
 dockerrun: dockerbuild
 	@echo Run docker build process and run a new container using the latest
-	docker run --rm -it -p 8080:80 --name acme-nginx "flask-boilerplate"
+	docker run --rm -it -p $(PORT_NUMBER):80 --name acme-nginx $(IMAGE_NAME)
 
 run:
 	@echo Execute my_module directly
 	FLASK_APP=my_module FLASK_DEBUG=1 pipenv run \
-    flask run --host 0.0.0.0 --port 8080
+    flask run --host 0.0.0.0 --port $(PORT_NUMBER)
 
 fetch-latest-boilerplate:
 	@echo Fetch latest python3-boilerplate version from github
