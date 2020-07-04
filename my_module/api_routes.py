@@ -6,28 +6,27 @@
 import logging
 from time import time
 
-from flask import request
+from flask import jsonify, request
 
 
 class ApiRoutes():
     """Available API routes for this web application."""
 
-    def __init__(self, app, api_handler, api_operations):  # noqa: D107
+    def __init__(self, app, api_handler):  # noqa: D107
 
         self.logger = logging.getLogger(__name__)
 
         @app.route('/', methods=['GET'])
-        def get_message():
-            return api_handler.handle(
-                api_operations.MESSAGE_GET
-            )
+        def get():
+            return api_handler.get(request)
 
         @app.route('/', methods=['POST'])
-        def set_message():
-            return api_handler.handle(
-                api_operations.MESSAGE_POST,
-                request_args=request.args
-            )
+        def post():
+            return api_handler.post(jsonify(request.get_json()))
+
+        @app.route('/', methods=['DELETE'])
+        def delete():
+            return api_handler.delete(request)
 
         @app.before_request
         def before_request():

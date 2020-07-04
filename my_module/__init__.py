@@ -11,7 +11,7 @@ import os
 from flask import Flask
 
 from . import db
-from .api_handler import ApiHandler, ApiOperations
+from .api_handler import ApiHandler
 from .api_routes import ApiRoutes
 
 logging.basicConfig(
@@ -51,7 +51,7 @@ def create_app(test_config=None):
         pass
 
     logger.info('Setting up routes...')
-    ApiRoutes(app, ApiHandler(), ApiOperations)
+    ApiRoutes(app, ApiHandler())
 
     logger.info('Server successfully started.')
     return app

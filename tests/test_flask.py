@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Basic flask test suite."""
 
+import json
 import os
 import tempfile
 
@@ -26,5 +27,6 @@ def __client():
 
 def test_empty_db(__client):
     """Start with a blank database."""
-    rv = __client.get('/')
-    assert b'This get endpoint does nothing. Sorry.' in rv.data
+    response = __client.get('/')
+    assert response.status_code == 200
+    assert json.loads(response.data) == []
