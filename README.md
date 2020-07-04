@@ -1,4 +1,4 @@
-# python3-flask-boilerplate
+# python3-flask-boilerplate ![CI](https://github.com/BastiTee/python3-flask-boilerplate/workflows/CI/badge.svg)
 
 > A best-practices template project for Python3 flask microservices
 
