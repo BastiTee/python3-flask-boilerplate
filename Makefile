@@ -21,8 +21,9 @@ export LANG=C.UTF-8
 VERSION=$(shell python3 setup.py --version)
 # Default my_module flask port
 PORT_NUMBER=22174
-# Default project docker image name
-IMAGE_NAME="python3-flask-boilerplate"
+# Default project docker image and container names
+CONTAINER_NAME="python3-flask-boilerplate"
+IMAGE_NAME="bastiteehome/python3-flask-boilerplate"
 
 all: clean venv build dockerbuild
 
@@ -77,7 +78,11 @@ dockerbuild:
 
 dockerrun: dockerbuild
 	@echo Run docker build process and run a new container using the latest
-	docker run --rm -it -p $(PORT_NUMBER):80 --name $(IMAGE_NAME) $(IMAGE_NAME)
+	docker run --rm -it -p $(PORT_NUMBER):80 --name $(CONTAINER_NAME) $(IMAGE_NAME)
+
+dockerpush: dockerbuild
+	@echo Push docker image to dockerhub. Expects docker login available
+	docker push $(IMAGE_NAME)
 
 run:
 	@echo Execute my_module directly

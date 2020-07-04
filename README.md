@@ -8,8 +8,13 @@ Refer to <https://github.com/BastiTee/python3-boilerplate#setup>
 
 ## Additional features on top of [python3-boilerplate](https://github.com/BastiTee/python3-boilerplate)
 
-- Flask web development framework <https://flask.palletsprojects.com/en/1.1.x/>
+- Flask web development framework <https://flask.palletsprojects.com/en/1.1.x/> with built-in support for
+
+  - Logging
+
 - Docker-support to containerize flask application
+
+- [Example deployment](example_deploy) configurations
 
 ## Licensing
 
