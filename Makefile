@@ -71,7 +71,7 @@ publish: all
 	git tag -a $(VERSION) -m "Version $(VERSION)"
 	git push --tags
 
-dockerbuild: build
+dockerbuild:
 	@echo Run full build toolchain and create a docker image for publishing
 	docker build -t $(IMAGE_NAME) . || exit 1
 
