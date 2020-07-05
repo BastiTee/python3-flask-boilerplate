@@ -13,6 +13,10 @@ Refer to <https://github.com/BastiTee/python3-boilerplate#setup>
 
 - [Example deployment](example_deploy) configurations
 
+## Todos
+
+- Non-dev database configuration via `config.py` file
+
 ## Licensing
 
 This project is licensed under [Apache License 2.0](LICENSE.txt).

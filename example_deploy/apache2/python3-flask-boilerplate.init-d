@@ -17,7 +17,6 @@ PROJECT_NAME="python3-flask-boilerplate"
 IMAGE_NAME="bastiteehome/${PROJECT_NAME}"
 PORT_NUMBER="22174"
 DATA_DIR="/var/data/${PROJECT_NAME}"
-LOG_FILE="${DATA_DIR}/logfile.log"
 start_daemon () {
     if [ ! -z $( docker ps -a -q  --filter ancestor=${IMAGE_NAME} ) ]
         then echo "Container already running"
@@ -25,7 +24,7 @@ start_daemon () {
     fi
     docker pull ${IMAGE_NAME}
     docker run --rm --detach \
-    --volume ${DATA_DIR}:/instance
+    --volume ${DATA_DIR}:/instance \
     --publish ${PORT_NUMBER}:80 \
     --name ${PROJECT_NAME} \
     ${IMAGE_NAME}
