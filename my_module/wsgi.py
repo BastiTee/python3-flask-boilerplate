@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 """Handler to initialize application via uwsgi."""
 

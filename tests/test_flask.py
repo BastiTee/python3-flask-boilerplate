@@ -9,7 +9,7 @@ import my_module
 
 import pytest
 
-sample_word = {
+SAMPLE_WORD = {
     'word': 'testword'
 }
 
@@ -38,7 +38,7 @@ def test_empty_db(__client):  # noqa: D103
 def test_insert_and_get_one(__client):  # noqa: D103
     response = __client.post(
         '/',
-        data=json.dumps(sample_word),
+        data=json.dumps(SAMPLE_WORD),
         content_type='application/json'
     )
     assert response.status_code == 200
@@ -51,7 +51,7 @@ def test_insert_and_get_one(__client):  # noqa: D103
 def test_insert_delete_and_get_none(__client):  # noqa: D103
     response = __client.post(
         '/',
-        data=json.dumps(sample_word),
+        data=json.dumps(SAMPLE_WORD),
         content_type='application/json'
     )
     assert response.status_code == 200

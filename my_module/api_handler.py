@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """Handle incoming API requests."""
 
 import json

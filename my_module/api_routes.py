@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=W0612
-
 """REST API routes."""
 
 import logging
