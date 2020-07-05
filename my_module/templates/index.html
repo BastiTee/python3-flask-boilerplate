@@ -1,0 +1,38 @@
+<!doctype html>
+<title>python3-flask-boilerplate</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<h1>Words</h1>
+{% for word in words %}
+<p>{{ word['word'] }}</p>
+{% endfor %}
+<hr />
+<p>
+<form onsubmit="return addNewWord()">
+    <input type="text" name="newWord" id="newWord" />
+    <button type="submit">Add Word!</button>
+</form>
+</p>
+<p>
+<form onsubmit="return deleteAll()">
+    <button type="submit">Delete All!</button>
+</form>
+</p>
+
+<script>
+    function addNewWord() {
+        var data = {
+            word: document.getElementById("newWord").value
+        };
+        var json = JSON.stringify(data);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/", false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send(json);
+    }
+    function deleteAll() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", "/", false);
+        xhr.send(null);
+    }
+</script>

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Handle incoming API requests."""
 
-import json
 import logging
 
 from flask import abort, jsonify, make_response
@@ -20,7 +19,7 @@ class ApiHandler():
         db_handle = db.get_db()
         rows = db_handle.execute('SELECT * from word;').fetchall()
         db_handle.close()
-        return json.dumps([dict(ix) for ix in rows])
+        return [dict(ix) for ix in rows]
 
     def post(self, request, *args, **kwargs):  # noqa: D102
         data = request.get_json()

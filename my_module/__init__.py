@@ -11,8 +11,7 @@ import os
 from flask import Flask
 
 from . import db
-from .api_handler import ApiHandler
-from .api_routes import ApiRoutes
+from .index_blueprint import blue_print
 
 logging.basicConfig(
     # See https://docs.python.org/3/library/logging.html#logrecord-attributes
@@ -29,6 +28,7 @@ def create_app(test_config=None):
 
     logger.info('Setting up Flask application...')
     app = Flask(__name__, instance_relative_config=True)
+    app.register_blueprint(blue_print)
 
     logger.info('Setting up database...')
     app.config.from_mapping(
@@ -50,8 +50,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    logger.info('Setting up routes...')
-    ApiRoutes(app, ApiHandler())
+    app.add_url_rule('/', endpoint='index')
 
     logger.info('Server successfully started.')
     return app

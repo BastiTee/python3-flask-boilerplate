@@ -9,10 +9,6 @@ import my_module
 
 import pytest
 
-SAMPLE_WORD = {
-    'word': 'testword'
-}
-
 
 @pytest.fixture
 def __client():
@@ -29,34 +25,44 @@ def __client():
     os.unlink(app.config['DATABASE'])
 
 
-def test_empty_db(__client):  # noqa: D103
-    response = __client.get('/')
+def __get_json(__client):
+    response = __client.get('/', headers={
+        'Accept': 'application/json'
+    })
     assert response.status_code == 200
-    assert json.loads(response.data) == []
+    return json.loads(response.data)
+
+
+def __post_sample_word(__client):
+    response = __client.post(
+        '/',
+        data=json.dumps({
+            'word': 'testword'
+        }),
+        content_type='application/json',
+        headers={
+            'Accept': 'application/json'
+        }
+    )
+    assert response.status_code == 200
+
+
+def test_empty_db(__client):  # noqa: D103
+    assert __get_json(__client) == []
 
 
 def test_insert_and_get_one(__client):  # noqa: D103
-    response = __client.post(
-        '/',
-        data=json.dumps(SAMPLE_WORD),
-        content_type='application/json'
-    )
-    assert response.status_code == 200
-    response = __client.get('/')
-    data = json.loads(response.data)
+    __post_sample_word(__client)
+    # Get words
+    data = __get_json(__client)
     assert len(data) == 1
     assert data[0]['word'] == 'testword'
 
 
 def test_insert_delete_and_get_none(__client):  # noqa: D103
-    response = __client.post(
-        '/',
-        data=json.dumps(SAMPLE_WORD),
-        content_type='application/json'
-    )
-    assert response.status_code == 200
+    __post_sample_word(__client)
+    # Delete all words
     response = __client.delete()
     assert response.status_code == 200
-    response = __client.get('/')
-    data = json.loads(response.data)
-    assert len(data) == 0
+    # Get words
+    assert len(__get_json(__client)) == 0
