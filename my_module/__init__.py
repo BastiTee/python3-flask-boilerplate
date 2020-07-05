@@ -33,7 +33,7 @@ def create_app(test_config=None):
     logger.info('Setting up database...')
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'database.sqlite'),
     )
     db.init_app(app)
 

@@ -13,16 +13,22 @@
 # Default-Stop:      0 1 6
 # Short-Description: A best-practices template project for Python3 flask microservices
 ### END INIT INFO
-IMAGE_NAME="bastiteehome/python3-flask-boilerplate"
+PROJECT_NAME="python3-flask-boilerplate"
+IMAGE_NAME="bastiteehome/${PROJECT_NAME}"
 PORT_NUMBER="22174"
-LOG_FILE="/var/log/python3-flask-boilerplate.log"
+DATA_DIR="/var/data/${PROJECT_NAME}"
+LOG_FILE="${DATA_DIR}/logfile.log"
 start_daemon () {
     if [ ! -z $( docker ps -a -q  --filter ancestor=${IMAGE_NAME} ) ]
         then echo "Container already running"
         exit 0
     fi
     docker pull ${IMAGE_NAME}
-    docker run --rm -d -p ${PORT_NUMBER}:80 --name python3-flask-boilerplate ${IMAGE_NAME}
+    docker run --rm --detach \
+    --volume ${DATA_DIR}:/instance
+    --publish ${PORT_NUMBER}:80 \
+    --name ${PROJECT_NAME} \
+    ${IMAGE_NAME}
 }
 stop_daemon () {
     docker ps -a -q  --filter ancestor=${IMAGE_NAME} | xargs docker kill 2>/dev/null

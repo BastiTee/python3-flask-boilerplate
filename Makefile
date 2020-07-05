@@ -78,7 +78,12 @@ dockerbuild:
 
 dockerrun: dockerbuild
 	@echo Run docker build process and run a new container using the latest
-	docker run --rm -it -p $(PORT_NUMBER):80 --name $(CONTAINER_NAME) $(IMAGE_NAME)
+	mkdir -vp ~/.python3-flask-boilerplate
+	docker run --rm --interactive --tty \
+	--volume ~/.python3-flask-boilerplate:/instance \
+	--publish $(PORT_NUMBER):80 \
+	--name $(CONTAINER_NAME) \
+	$(IMAGE_NAME)
 
 dockerpush: dockerbuild
 	@echo Push docker image to dockerhub. Expects docker login available

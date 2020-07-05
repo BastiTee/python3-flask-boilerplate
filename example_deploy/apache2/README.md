@@ -22,6 +22,8 @@
   sudo systemctl restart apache2
   ```
 
+- Setup a data directory, e.g. `/var/data/python3-flask-boilerplate"
+
 - Setup [init.d](python3-flask-boilerplate.init-d) script in `/etc/init.d`
 
 - Make it executable by root
